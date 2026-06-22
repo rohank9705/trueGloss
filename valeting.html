@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valeting Menu | True Gloss</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo">
+        <a href="index.html">
+          <img
+            src="images/true-gloss-logo.png"
+            alt="True Gloss Detailing Logo"
+            class="header__logo-img"
+          />
+        </a>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a
+              href="index.html"
+              class="header__nav-link header__nav-link--active"
+              >Home | Our Services</a
+            >
+          </li>
+          <li class="header__nav-item">
+            <a href="aboutus.html" class="header__nav-link">About Us</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="contact.html" class="header__nav-link">Contact</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="comingsoon.html" class="header__nav-link">Products Used</a>
+          </li>
+          <li class="header__nav-item">
+            <a
+              href="login.html"
+              id="auth-login-btn"
+              class="header__nav-link header__nav-link--login"
+              >Log In</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="services-valeting">
+        <h2>Our Valeting Packages</h2>
+        <p>
+          Looking to bring that factory feel back to your car? View our full
+          valeting menu below. Mobile services available. Prices may vary with
+          vehicle size.
+        </p>
+
+        <div class="valeting-preview__grid" id="publicPackagesGrid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__content">
+        <p>&copy; 2026 True Gloss Detailing. All rights reserved.</p>
+        <div class="footer__socials">
+          Follow us on Instagram
+          <a
+            href="https://instagram.com/truegloss_"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss_</a
+          >
+          <a
+            href="https://instagram.com/truegloss.valeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss.valeting</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const packagesGrid = document.getElementById("publicPackagesGrid");
+
+      const loadPublicPackages = async () => {
+        try {
+          // 1. Fetch the data from your live database
+          const response = await fetch("/api/packages");
+          const packages = await response.json();
+
+          // 2. Filter out drafts! Customers should ONLY see 'active' packages
+          const livePackages = packages.filter(pkg => pkg.status === 'active' && pkg.category === 'valeting');
+
+          // Clear the grid just in case
+          packagesGrid.innerHTML = "";
+
+          // 3. Loop through the active packages and build the HTML cards
+          livePackages.forEach((pkg) => {
+            const card = document.createElement("div");
+            card.className = "menu-card";
+
+            // We inject your exact CSS classes so it perfectly matches your design
+            card.innerHTML = `
+                        <h3 class="menu-card__title">${pkg.name}</h3>
+                        <p class="menu-card__desc">${pkg.description}</p>
+                        
+                        <div class="menu-card__btn">
+                            <a href="contact.html" class="btn btn--secondary">Book Now - £${parseFloat(pkg.price).toFixed(2)}</a>
+                        </div>
+                    `;
+
+            packagesGrid.appendChild(card);
+          });
+
+          // If there are no live packages yet, show a polite message
+          if (livePackages.length === 0) {
+            packagesGrid.innerHTML =
+              "<p>We are currently updating our service menu. Please check back shortly!</p>";
+          }
+        } catch (error) {
+          console.error("Error loading packages:", error);
+          packagesGrid.innerHTML =
+            "<p>Unable to load packages at this time. Please contact us directly to book.</p>";
+        }
+      };
+
+      // Run the script instantly when the customer opens the page
+      loadPublicPackages();
+    </script>
+  </body>
+</html>

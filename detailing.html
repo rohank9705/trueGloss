@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Gloss | Premium Auto Detailing & Valeting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header__logo">
+    <a href="index.html">
+        <img
+            src="images/true-gloss-logo.png"
+            alt="True Gloss Detailing Logo"
+            class="header__logo-img"
+        />
+    </a>
+</div>
+        <nav class="header__nav">
+            <ul class="header__nav-list">
+                <li class="header__nav-item"><a href="index.html" class="header__nav-link header__nav-link--active">Home | Our Services</a></li>
+                <li class="header__nav-item"><a href="aboutus.html" class="header__nav-link">About Us</a></li>
+                <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
+                <li class="header__nav-item"><a href="comingsoon.html" class="header__nav-link">Products Used</a></li>
+                <li class="header__nav-item"><a href="login.html" id="auth-login-btn" class="header__nav-link header__nav-link--login">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="services-detailing">
+            <h2>Paint Correction & Detailing</h2>
+            <p>Premium care to bring that showroom gloss back to your vehicle.</p>
+            
+            <div class="valeting-preview__grid" id="detailingPackagesGrid"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__content">
+            <p>&copy; 2026 True Gloss Detailing. All rights reserved.</p>
+            <div class="footer__socials">
+                Follow us on Instagram 
+                <a href="https://instagram.com/truegloss_" target="_blank" rel="noopener noreferrer">@truegloss_</a>
+                <a href="https://instagram.com/truegloss.valeting" target="_blank" rel="noopener noreferrer">@truegloss.valeting</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const packagesGrid = document.getElementById('detailingPackagesGrid');
+
+        const loadDetailingPackages = async () => {
+            try {
+                const response = await fetch('/api/packages');
+                const packages = await response.json();
+
+                // THE MAGIC FILTER: Only Active AND Only Detailing
+                // Change this line in detailing.html
+                const livePackages = packages.filter(pkg => pkg.status === 'active' && pkg.category.toLowerCase() === 'detailing');
+
+                packagesGrid.innerHTML = ''; 
+
+                livePackages.forEach(pkg => {
+                    const card = document.createElement('div');
+                    card.className = 'menu-card';
+                    card.innerHTML = `
+                        <h3 class="menu-card__title">${pkg.name}</h3>
+                        <p class="menu-card__desc">${pkg.description}</p>
+                        <div class="menu-card__btn">
+                            <a href="contact.html" class="btn btn--secondary">Book Now - £${parseFloat(pkg.price).toFixed(2)}</a>
+                        </div>
+                    `;
+                    packagesGrid.appendChild(card);
+                });
+
+                if (livePackages.length === 0) {
+                    packagesGrid.innerHTML = '<p>We are currently updating our detailing menu. Please check back shortly!</p>';
+                }
+
+            } catch (error) {
+                console.error("Error loading packages:", error);
+                packagesGrid.innerHTML = '<p>Unable to load packages at this time.</p>';
+            }
+        };
+
+        loadDetailingPackages();
+    </script>
+
+</body>
+</html>

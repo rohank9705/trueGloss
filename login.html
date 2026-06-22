@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>True Gloss | Premium Auto Detailing & Valeting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo">
+        <div class="header__logo">
+          <a href="index.html">
+            <img
+              src="images/true-gloss-logo.png"
+              alt="True Gloss Detailing Logo"
+              class="header__logo-img"
+            />
+          </a>
+        </div>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a
+              href="index.html"
+              class="header__nav-link header__nav-link--active"
+              >Home | Our Services</a
+            >
+          </li>
+          <li class="header__nav-item">
+            <a href="aboutus.html" class="header__nav-link">About Us</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="contact.html" class="header__nav-link">Contact</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="comingsoon.html" class="header__nav-link">Products Used</a>
+          </li>
+          <li class="header__nav-item">
+            <a
+              href="login.html"
+              id="auth-login-btn"
+              class="header__nav-link header__nav-link--login"
+              >Log In</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="aboutus">
+        <h2>ADMIN ACCESS</h2>
+        <p>Please sign in.</p>
+      </section>
+
+      <form id="loginForm" class="login-form">
+        <div class="login-form__group">
+          <label for="email" class="login-form__label">Staff Email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            class="login-form__input"
+            placeholder="admin@truegloss.uk"
+          />
+        </div>
+
+        <div class="login-form__group">
+          <label for="password" class="login-form__label">Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            class="login-form__input"
+          />
+        </div>
+
+        <button type="submit" class="btn btn--primary login-form__btn">
+          Authenticate
+        </button>
+      </form>
+    </main>
+    <footer class="footer">
+      <div class="footer__content">
+        <p>&copy; 2026 True Gloss Detailing. All rights reserved.</p>
+        <div class="footer__socials">
+          Follow us on Instagram
+          <a
+            href="https://instagram.com/truegloss_"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss_</a
+          >
+          <a
+            href="https://instagram.com/truegloss.valeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss.valeting</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Stop the page from refreshing
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            localStorage.setItem("isLoggedIn", "true"); // Set the "Gatekeeper" key
+            window.location.href = "dashboard.html";
+          } else {
+            // Show an error message
+            alert(result.message || "Login failed.");
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Could not connect to the server.");
+        }
+      });
+    </script>
+  </body>
+</html>

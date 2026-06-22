@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>True Gloss | Premium Auto Detailing & Valeting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo">
+        <a href="index.html">
+          <img
+            src="images/true-gloss-logo.png"
+            alt="True Gloss Detailing Logo"
+            class="header__logo-img"
+          />
+        </a>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a
+              href="index.html"
+              class="header__nav-link header__nav-link--active"
+              >Home | Our Services</a
+            >
+          </li>
+          <li class="header__nav-item">
+            <a href="aboutus.html" class="header__nav-link">About Us</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="contact.html" class="header__nav-link">Contact</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="comingsoon.html" class="header__nav-link">Products Used</a>
+          </li>
+          <li class="header__nav-item">
+            <a
+              href="login.html"
+              id="auth-login-btn"
+              class="header__nav-link header__nav-link--login"
+              >Log In</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="contact-info">
+        <div>
+          <h2>Looking to get in contact?</h2>
+
+          You can drop us a DM on our Instagram and we'll be in touch within 24
+          hours. Or, you can give us a call on:
+          <p>
+            <a href="tel:+447368966534">07368966534</a> /
+            <a href="mailto:trueglossvaleting@gmail.com">
+              trueglossvaleting@gmail.com</a
+            >
+            for all your valeting needs.
+          </p>
+          <p>
+            <a href="tel:+447368170028">07368170028</a> /
+            <a href="mailto:truegloss.tg@gmail.com"> truegloss.tg@gmail.com</a>
+            for all your detailing needs
+          </p>
+
+          <p>
+            Have a question about a package or ready to book? Fill out the form
+            below.
+          </p>
+
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            class="contact-form"
+          >
+            <div class="contact-form__group">
+              <label for="department" class="contact-form__label"
+                >Get in Touch</label
+              >
+              <select
+                id="department"
+                name="department"
+                required
+                class="contact-form__input"
+              >
+                <option value="" disabled selected>
+                  Who do you want to contact?
+                </option>
+                <option value="valeting">
+                  Valeting Team (trueglossvaleting@gmail.com)
+                </option>
+                <option value="detailing">
+                  Detailing Team (truegloss.tg@gmail.com)
+                </option>
+              </select>
+            </div>
+
+            <div class="contact-form__group">
+              <label for="name" class="contact-form__label">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="contact-form__input"
+                placeholder="e.g. John Doe"
+              />
+            </div>
+
+            <div class="contact-form__group">
+              <label for="car" class="contact-form__label"
+                >Car Make & Model</label
+              >
+              <input
+                type="text"
+                id="car"
+                name="car"
+                required
+                class="contact-form__input"
+                placeholder="e.g. BMW 4 Series"
+              />
+            </div>
+
+            <div class="contact-form__group">
+              <label for="message" class="contact-form__label"
+                >Your Enquiry</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                class="contact-form__input contact-form__textarea"
+                placeholder="How can we help bring the gloss back to your car?"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn contact-form__btn">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__content">
+        <p>&copy; 2026 True Gloss Detailing. All rights reserved.</p>
+        <div class="footer__socials">
+          Follow us on Instagram
+          <a
+            href="https://instagram.com/truegloss_"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss_</a
+          >
+          <a
+            href="https://instagram.com/truegloss.valeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@truegloss.valeting</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
