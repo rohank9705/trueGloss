@@ -31,7 +31,7 @@
       <main class="admin-main">
         <header class="admin-header">
           <div class="admin-header__greeting">
-            <h1>Welcome back, <span id="admin-name"></span>!</h1>
+            <h1>Welcome back !</h1>
             <p>Here is what is happening with your services today.</p>
           </div>
           <button class="btn btn--primary" id="openModalBtn">
@@ -42,15 +42,22 @@
         <section class="admin-stats">
           <div class="admin-card">
             <h3>Active Packages</h3>
-            <p class="admin-card__number">4</p>
+            <p class="admin-card__number" id="active-pkg-count">...</p>
           </div>
-          <div class="admin-card">
-            <h3>Maintenance Subs</h3>
-            <p class="admin-card__number">12</p>
-          </div>
+
           <div class="admin-card">
             <h3>Recent Enquiries</h3>
-            <p class="admin-card__number">3</p>
+            <ul
+              id="enquiries-list"
+              style="
+                list-style: none;
+                padding: 0;
+                margin-top: 10px;
+                line-height: 1.6;
+              "
+            >
+              <li>Loading...</li>
+            </ul>
           </div>
         </section>
 
@@ -189,6 +196,11 @@
             "https://truegloss.onrender.com/api/packages",
           );
           const packages = await response.json();
+          const activePackagesCount = packages.filter(
+            (pkg) => pkg.status === "active",
+          ).length;
+          document.getElementById("active-pkg-count").innerText =
+            activePackagesCount;
           tableBody.innerHTML = "";
           packages.forEach((pkg) => {
             const statusClass =
@@ -300,6 +312,39 @@
           console.error("Server communication error:", error);
         }
       });
+
+      const loadEnquiries = async () => {
+        try {
+          const response = await fetch(
+            "https://truegloss.onrender.com/api/enquiries",
+          );
+          const enquiries = await response.json();
+          const list = document.getElementById("enquiries-list");
+
+          list.innerHTML = ""; // Clear the "Loading..." text
+
+          if (enquiries.length === 0) {
+            list.innerHTML = "<li>No recent enquiries.</li>";
+            return;
+          }
+
+          // Loop through the top 5 most recent enquiries and display their names
+          enquiries.slice(0, 5).forEach((enq) => {
+            const li = document.createElement("li");
+            // Formats it to look like: "John Doe - 22/06/2026"
+            const date = new Date(enq.created_at).toLocaleDateString("en-GB");
+            li.innerHTML = `<strong>${enq.name}</strong> <span style="font-size: 0.8em; color: gray;">(${date})</span>`;
+            list.appendChild(li);
+          });
+        } catch (error) {
+          console.error("Error loading enquiries:", error);
+          document.getElementById("enquiries-list").innerHTML =
+            "<li>Unable to load enquiries.</li>";
+        }
+      };
+
+      // Run the function when the page loads
+      loadEnquiries();
     </script>
   </body>
 </html>

@@ -51,6 +51,16 @@ async function initializeTables() {
                 role TEXT DEFAULT 'admin'
             )
         `);
+
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS enquiries (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                message TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
         console.log("Database tables verified/created successfully.");
     } catch (err) {
         console.error("Error initializing tables:", err);
@@ -110,6 +120,34 @@ app.get('/api/packages', async (req, res) => {
     } catch (err) {
         console.error("Error fetching packages:", err);
         res.status(500).json({ message: "Error fetching packages" });
+    }
+});
+
+// --- ENQUIRIES ROUTES ---
+
+// 1. Fetch enquiries for the dashboard (Newest first)
+app.get('/api/enquiries', async (req, res) => {
+    try {
+        const result = await db.query(`SELECT * FROM enquiries ORDER BY created_at DESC`);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error("Error fetching enquiries:", err);
+        res.status(500).json({ message: "Error fetching enquiries" });
+    }
+});
+
+// 2. Save a new enquiry from the Contact Form
+app.post('/api/enquiries', async (req, res) => {
+    const { name, email, message } = req.body;
+    try {
+        await db.query(
+            `INSERT INTO enquiries (name, email, message) VALUES ($1, $2, $3)`, 
+            [name, email, message]
+        );
+        res.status(200).json({ message: "Enquiry sent successfully!" });
+    } catch (err) {
+        console.error("Error saving enquiry:", err);
+        res.status(500).json({ message: "Failed to send enquiry." });
     }
 });
 
