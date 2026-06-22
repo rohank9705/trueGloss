@@ -1,131 +1,162 @@
+require('dotenv').config(); // Loaded first to keep keys secure
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose(); // Brings in the database engine
-const app = express();
-const PORT = 3000;
 const cors = require('cors');
-app.use(cors()); // This opens the gates so Netlify can talk to it!
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+const { Pool } = require('pg');
 
-// Ensure this is at the top level of server.js, not nested inside another app.post!
-app.post('/api/login', (req, res) => {
+const app = express();
+const PORT = process.env.PORT || 3000; // Added missing PORT
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname)); // <-- ADD THIS LINE
+
+// Connect to Neon.tech Cloud Database
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false // Required for secure cloud connection
+    }
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error('Database connection error:', err.stack);
+    } else {
+        console.log('Connected to the True Gloss Cloud Database!');
+        initializeTables(); // Runs the schema build as soon as we connect
+    }
+});
+
+// Build the Schema: Creates tables if they don't exist yet
+// Postgres uses SERIAL PRIMARY KEY instead of AUTOINCREMENT
+async function initializeTables() {
+    try {
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS packages (
+                id SERIAL PRIMARY KEY,
+                name TEXT,
+                price REAL,
+                description TEXT,
+                status TEXT,
+                category TEXT
+            )
+        `);
+
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                email TEXT UNIQUE,
+                password TEXT,
+                role TEXT DEFAULT 'admin'
+            )
+        `);
+        console.log("Database tables verified/created successfully.");
+    } catch (err) {
+        console.error("Error initializing tables:", err);
+    }
+}
+
+// --- AUTHENTICATION ROUTE ---
+app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
-    db.get(`SELECT * FROM users WHERE email = ? AND password = ?`, [email, password], (err, user) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).json({ message: "Internal server error" });
-        }
-        if (!user) {
+    try {
+        // We use $1 and $2 for Postgres instead of the old SQLite ?
+        const result = await db.query(`SELECT * FROM users WHERE email = $1 AND password = $2`, [email, password]);
+        
+        // If the database returns 0 rows, the user doesn't exist or password is wrong
+        if (result.rows.length === 0) {
             return res.status(401).json({ message: "Invalid email or password." });
         }
-        res.status(200).json({ message: "Login successful" });
-    });
-});
-
-// 1. Initialize Database: Creates a local file called 'truegloss.db'
-const db = new sqlite3.Database('./truegloss.db', (err) => {
-    if (err) console.error("Database connection error:", err.message);
-    else console.log("Connected to the True Gloss local database.");
-});
-
-// 2. Build the Schema: Creates the 'packages' table if it doesn't exist yet
-db.serialize(() => {
-    db.run(`CREATE TABLE IF NOT EXISTS packages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        price REAL,
-        description TEXT,
-        status TEXT,
-        category TEXT
-    )`);
-
-    db.run(`CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE,
-        password TEXT,
-        role TEXT DEFAULT 'admin'
-    )`);
-});
-
-// 3. The API Route: Now saves the data permanently into the SQL database
-app.post('/api/packages', (req, res) => {
-    const { name, price, description, status, category } = req.body;
-    
-    // The SQL command to insert the new row
-    const query = `INSERT INTO packages (name, price, description, status, category) VALUES (?, ?, ?, ?, ?)`;
-    
-    // Execute the command using the data from your frontend modal
-    db.run(query, [name, price, description, status, category], function(err) {
-        if (err) {
-            console.error("Failed to save package:", err);
-            return res.status(500).json({ message: "Error saving to database." });
-        }
         
-        console.log(`SUCCESS: "${name}" was securely saved to the database!`);
+        // If we found a match, success!
+        res.status(200).json({ message: "Login successful" });
+    } catch (err) {
+        console.error("Login database error:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+// 3. The API Route: Saves packages to the cloud database
+// Changed '?' to '$1, $2, $3...' and 'db.run()' to 'db.query()'
+app.post('/api/packages', async (req, res) => {
+    const { name, price, description, status, category } = req.body;
+    const query = `
+        INSERT INTO packages (name, price, description, status, category) 
+        VALUES ($1, $2, $3, $4, $5) 
+        RETURNING id
+    `;
+    
+    try {
+        const result = await db.query(query, [name, price, description, status, category]);
+        console.log(`SUCCESS: "${name}" was securely saved to the cloud!`);
         res.status(200).json({ 
             message: "Package securely saved!", 
-            packageId: this.lastID // Sends back the unique ID generated by SQL
+            packageId: result.rows[0].id // Postgres returns the new ID here
         });
-    });
-
-    
+    } catch (err) {
+        console.error("Failed to save package:", err);
+        res.status(500).json({ message: "Error saving to database." });
+    }
 });
 
-
-// 4. Fetch All Packages: Pulls data from the database to show on the dashboard
-app.get('/api/packages', (req, res) => {
-    db.all(`SELECT * FROM packages`, [], (err, rows) => {
-        if (err) {
-            console.error("Error fetching packages:", err);
-            return res.status(500).json({ message: "Error fetching packages" });
-        }
-        // Sends the rows back to the frontend as a clean JSON array
-        res.status(200).json(rows);
-    });
+// 4. Fetch All Packages
+// Changed 'db.all()' to 'db.query()'
+app.get('/api/packages', async (req, res) => {
+    try {
+        const result = await db.query(`SELECT * FROM packages ORDER BY id ASC`);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error("Error fetching packages:", err);
+        res.status(500).json({ message: "Error fetching packages" });
+    }
 });
 
-// 5. Delete a Package: Removes a package from the database based on its ID
-app.delete('/api/packages/:id', (req, res) => {
+// 5. Delete a Package
+app.delete('/api/packages/:id', async (req, res) => {
     const packageId = req.params.id;
-
-    // The SQL command to delete a specific row
-    db.run(`DELETE FROM packages WHERE id = ?`, packageId, function(err) {
-        if (err) {
-            console.error("Error deleting package:", err);
-            return res.status(500).json({ message: "Failed to delete package." });
-        }
-        
+    try {
+        await db.query(`DELETE FROM packages WHERE id = $1`, [packageId]);
         console.log(`SUCCESS: Package ID ${packageId} was deleted.`);
         res.status(200).json({ message: "Package deleted successfully!" });
-    });
+    } catch (err) {
+        console.error("Error deleting package:", err);
+        res.status(500).json({ message: "Failed to delete package." });
+    }
 });
 
-// 6. Get a Single Package: Fetches one specific package to pre-fill the edit form
-app.get('/api/packages/:id', (req, res) => {
-    db.get(`SELECT * FROM packages WHERE id = ?`, [req.params.id], (err, row) => {
-        if (err) {
-            console.error("Error fetching single package:", err);
-            return res.status(500).json({ message: "Error fetching package data." });
+// 6. Get a Single Package
+app.get('/api/packages/:id', async (req, res) => {
+    try {
+        const result = await db.query(`SELECT * FROM packages WHERE id = $1`, [req.params.id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Package not found." });
         }
-        res.status(200).json(row);
-    });
+        res.status(200).json(result.rows[0]);
+    } catch (err) {
+        console.error("Error fetching single package:", err);
+        res.status(500).json({ message: "Error fetching package data." });
+    }
 });
 
-// 7. Edit a Package: Overwrites the existing database row with new data
-app.put('/api/packages/:id', (req, res) => {
+// 7. Edit a Package
+app.put('/api/packages/:id', async (req, res) => {
     const { name, price, description, status, category } = req.body;
     const packageId = req.params.id;
-    const query = `UPDATE packages SET name = ?, price = ?, description = ?, status = ?, category = ? WHERE id = ?`;
-    db.run(query, [name, price, description, status, category, packageId], function(err) {
-        if (err) {
-            console.error("Error updating package:", err);
-            return res.status(500).json({ message: "Failed to update package." });
-        }
+    const query = `
+        UPDATE packages 
+        SET name = $1, price = $2, description = $3, status = $4, category = $5 
+        WHERE id = $6
+    `;
+    try {
+        await db.query(query, [name, price, description, status, category, packageId]);
         console.log(`SUCCESS: Package ID ${packageId} was updated.`);
         res.status(200).json({ message: "Package updated successfully!" });
-    });
+    } catch (err) {
+        console.error("Error updating package:", err);
+        res.status(500).json({ message: "Failed to update package." });
+    }
 });
 
 // Boot up the server
