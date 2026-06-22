@@ -54,7 +54,7 @@
 
         const loadDetailingPackages = async () => {
             try {
-                const response = await fetch('https://truegloss.onrender.com');
+                const response = await fetch("https://truegloss.onrender.com/api/packages");
                 const packages = await response.json();
 
                 // THE MAGIC FILTER: Only Active AND Only Detailing
