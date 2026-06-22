@@ -205,6 +205,11 @@ body {
     font-weight: bold;
 }
 
+.contact__us a {
+    color: var(--brand-red);
+    font-weight: bold;
+}
+
 /* Products Grid Setup */
 .products-showcase__grid {
     display: grid;
@@ -535,7 +540,7 @@ select.contact-form__input {
 
 /* SIDEBAR */
 .admin-sidebar {
-    width: 150px;
+    width: 480px;
     background-color: #222;
     border-right: 1px solid #333;
     display: flex;
@@ -780,4 +785,77 @@ select.contact-form__input {
 @keyframes popIn {
     0% { opacity: 0; transform: scale(0.95); }
     100% { opacity: 1; transform: scale(1); }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (DASHBOARD & MODALS)
+   ========================================= */
+
+@media (max-width: 768px) {
+  /* 1. Move the Sidebar to the top */
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    min-height: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid #eee; /* Adjust color to match your theme */
+  }
+
+  /* Make navigation links sit side-by-side on mobile */
+  .admin-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  .admin-nav__link {
+    margin-bottom: 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* 2. Stack the Stats Cards */
+  .admin-stats {
+    display: grid;
+    grid-template-columns: 1fr; /* Stacks them one on top of the other */
+    gap: 1rem;
+  }
+
+  /* 3. Make the Table horizontally scrollable */
+  .admin-content {
+    /* This wrapper lets you swipe left/right on the table without breaking the page */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+    margin-bottom: 2rem;
+  }
+
+  .admin-table {
+    min-width: 600px; /* Forces the table to stay wide enough to read */
+  }
+
+  /* 4. Fix the Modal so it fits on small screens */
+  .admin-modal__content {
+    width: 95%;
+    max-height: 90vh; /* Prevents it from being taller than the screen */
+    overflow-y: auto; /* Adds a vertical scrollbar inside the modal if needed */
+    padding: 1.5rem;
+    margin: 5% auto;
+  }
+
+  /* Adjust header text sizes for mobile */
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
