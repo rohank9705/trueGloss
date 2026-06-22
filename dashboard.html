@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard | True Gloss</title>
     <link rel="stylesheet" href="style.css" />
+
+    <script>
+      // Check if the key is missing
+      if (!localStorage.getItem("isLoggedIn")) {
+        // window.location.replace prevents them from using the "Back" button to get back in
+        window.location.replace("login.html"); 
+      }
+    </script>
   </head>
   <body class="admin-body">
     <div class="admin-layout">
@@ -155,11 +163,7 @@
       // We add this variable to track if we are editing or creating
       let currentEditId = null;
 
-      // This checks if the user has been "authorized"
-      // For now, check if they have a session or flag in their browser storage
-      if (!localStorage.getItem("isLoggedIn")) {
-        window.location.href = "login.html"; // Kick them back to login if they aren't authorized
-      }
+      
 
       // ----------------------------------------------------
       // OPEN/CLOSE MODAL & RESET LOGIC
