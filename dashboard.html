@@ -185,7 +185,7 @@
       // ----------------------------------------------------
       const loadPackages = async () => {
         try {
-          const response = await fetch("/api/packages");
+          const response = await fetch("https://truegloss.onrender.com");
           const packages = await response.json();
           tableBody.innerHTML = "";
           packages.forEach((pkg) => {
