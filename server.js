@@ -55,8 +55,10 @@ async function initializeTables() {
         await db.query(`
             CREATE TABLE IF NOT EXISTS enquiries (
                 id SERIAL PRIMARY KEY,
+                department TEXT,
                 name TEXT NOT NULL,
                 email TEXT NOT NULL,
+                car TEXT,
                 message TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -138,11 +140,12 @@ app.get('/api/enquiries', async (req, res) => {
 
 // 2. Save a new enquiry from the Contact Form
 app.post('/api/enquiries', async (req, res) => {
-    const { name, email, message } = req.body;
+    // Add department and car here
+    const { department, name, email, car, message } = req.body;
     try {
         await db.query(
-            `INSERT INTO enquiries (name, email, message) VALUES ($1, $2, $3)`, 
-            [name, email, message]
+            `INSERT INTO enquiries (department, name, email, car, message) VALUES ($1, $2, $3, $4, $5)`, 
+            [department, name, email, car, message]
         );
         res.status(200).json({ message: "Enquiry sent successfully!" });
     } catch (err) {
