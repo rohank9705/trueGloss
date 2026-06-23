@@ -14,9 +14,13 @@ app.use(express.static(__dirname)); // <-- ADD THIS LINE
 // Connect to Neon.tech Cloud Database
 const db = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false // Required for secure cloud connection
-    }
+    ssl: { rejectUnauthorized: false }
+});
+
+// --- ADD THIS BLOCK ---
+// Catch unexpected database disconnects so the server doesn't crash
+db.on('error', (err, client) => {
+    console.error('Unexpected database disconnect (Neon sleep). Server is still running.', err.message);
 });
 
 db.connect((err) => {

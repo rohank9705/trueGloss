@@ -6,6 +6,15 @@
     <title>Valeting Menu | True Gloss</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSTJM5PNVS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RSTJM5PNVS');
+</script>
   <body>
     <header class="header">
       <div class="header__logo">
@@ -63,6 +72,34 @@
 
         <div class="valeting-preview__grid" id="publicPackagesGrid"></div>
       </section>
+
+      <section class="faq-section">
+        <h2>Valeting FAQ</h2>
+        <p class="faq-subtitle">Everything you need to know about our mobile valeting services.</p>
+        
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">How long does a standard valet take? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Typically, a standard valet takes between 1.5 to 3 hours depending on the size and condition of your vehicle, as well as the specific package you have chosen.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">Can you remove pet hair and other tough stains? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Yes, we offer pet hair removal and have the tools to remove other tough stains in the interior at an additional cost depending on condition.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">How often should I get my car valeted? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>For a daily driven vehicle, we recommend a deep valet every 3 to 4 months to reset the interior and exterior, combined with our regular maintenance wash every 2 to 4 weeks to keep the gloss locked in.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
@@ -87,8 +124,27 @@
     </footer>
 
     <script>
-      const packagesGrid = document.getElementById("publicPackagesGrid");
+        // --- FAQ ACCORDION LOGIC ---
+      const faqItems = document.querySelectorAll('.faq-item');
 
+      faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        
+        questionBtn.addEventListener('click', () => {
+          // Check if the one we clicked is already open
+          const isOpen = item.classList.contains('active');
+
+          // First, close all FAQ items so only one stays open at a time
+          faqItems.forEach(faq => faq.classList.remove('active'));
+
+          // If the one we clicked wasn't open, open it now
+          if (!isOpen) {
+            item.classList.add('active');
+          }
+        });
+      });
+      const packagesGrid = document.getElementById("publicPackagesGrid");
+      packagesGrid.innerHTML = "<p><em>Loading our live service menu... this might take a few seconds.</em></p>";
       const loadPublicPackages = async () => {
         try {
           // 1. Fetch the data from your live database

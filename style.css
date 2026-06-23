@@ -2,789 +2,815 @@
    GLOBAL VARIABLES & RESET
    ========================================== */
 :root {
-    --bg-dark: #2b2727; 
-    --text-light: #ffffff;
-    --brand-red: #cc0000; 
-    --card-overlay: rgba(0, 0, 0, 0.45); 
+  --bg-dark: #2b2727;
+  --text-light: #ffffff;
+  --brand-red: #cc0000;
+  --card-overlay: rgba(0, 0, 0, 0.45);
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
 }
 
 /* THE GLOBAL FADE-IN FIX: This makes every page fade in smoothly */
 .main {
-    animation: fadeIn 0.8s ease-in-out;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 /* ==========================================
    HEADER & NAVIGATION
    ========================================== */
 .header {
-    padding: 1.5rem 2rem 1.5rem 2rem; 
-    text-align: center;
+  padding: 1.5rem 2rem 1.5rem 2rem;
+  text-align: center;
 }
 
 .header__logo {
-    font-size: 4.5rem;
-    font-weight: 700;
-    letter-spacing: -2px;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .header__logo a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .header__logo-img {
-    max-height: 120px; 
-    width: auto;      
-    display: block;
-    margin: 0 auto;   
+  max-height: 120px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .header__nav-list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
 }
 
 .header__nav-link {
-    text-decoration: none;
-    color: var(--text-light);
-    text-transform: uppercase;
-    font-size: 0.95rem;
-    letter-spacing: 1px;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-    transition: color 0.3s ease;
+  text-decoration: none;
+  color: var(--text-light);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease;
 }
 
 .header__nav-link:hover {
-    border-bottom: 3px solid var(--brand-red);
-    transition: color 0.3s ease, border-color 0.3s ease;
+  border-bottom: 3px solid var(--brand-red);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
- 
+
 /* ==========================================
    INDEX: MAIN SERVICES GRID (The Image Cards)
    ========================================== */
 .services-preview {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .services-preview__header {
-    display: none; 
+  display: none;
 }
 
 .services-preview__grid {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
 }
 
 .service-card {
-    position: relative;
-    width: 450px;
-    height: 450px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 3rem;
-    background-color: #222;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
+  position: relative;
+  width: 450px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem;
+  background-color: #222;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
 }
 
 .service-card:hover {
-    transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 .service-card:nth-child(1) {
-    background-image: url('images/4seriesfront.jpeg'); 
+  background-image: url("images/4seriesfront.jpeg");
 }
 
 .service-card:nth-child(2) {
-    background-image: url('images/jaguar2.JPG');
+  background-image: url("images/jaguar2.JPG");
 }
 
 .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: var(--card-overlay);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--card-overlay);
+  z-index: 1;
 }
 
-.service-card__title, 
-.service-card__desc, 
+.service-card__title,
+.service-card__desc,
 .service-card .btn {
-    position: relative;
-    z-index: 2; 
+  position: relative;
+  z-index: 2;
 }
 
 .service-card__title {
-    display: none; 
+  display: none;
 }
 
 .service-card__desc {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--text-light);
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
-    margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-light);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+  margin-bottom: 1.5rem;
 }
 
 /* ==========================================
    BUTTONS
    ========================================== */
 .btn {
-    display: inline-block;
-    padding: 0.8rem 1.8rem;
-    background-color: rgba(0,0,0,0.5);
-    color: var(--text-light);
-    border: 2px solid var(--text-light);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-light);
+  border: 2px solid var(--text-light);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
-    background-color: var(--brand-red);
-    border-color: var(--brand-red);
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
 }
 
 /* ==========================================
    INNER PAGES (About, Contact, Products)
    ========================================== */
-.aboutus, 
-.contact-info, 
-.products-showcase, 
-.services-detailing, 
+.aboutus,
+.contact-info,
+.products-showcase,
+.services-detailing,
 .services-valeting {
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 0 2rem;
-    text-align: center;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  text-align: center;
 }
 
-.aboutus h2, .contact-info h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+.aboutus h2,
+.contact-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
 }
 
-.aboutus p, .contact-info p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+.aboutus p,
+.contact-info p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
 .contact-info a {
-    color: var(--brand-red);
-    font-weight: bold;
+  color: var(--brand-red);
+  font-weight: bold;
 }
 
 .contact__us a {
-    color: var(--brand-red);
-    font-weight: bold;
+  color: var(--brand-red);
+  font-weight: bold;
 }
 
 /* Products Grid Setup */
 .products-showcase__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
-    text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  text-align: left;
 }
 
 .product-card {
-    background: #333;
-    padding: 1.5rem;
-    border-radius: 6px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  background: #333;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .product-card__img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    background-color: #222; 
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  background-color: #222;
 }
 
 .product-card__brand {
-    font-size: 0.85rem;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .product-card__name {
-    font-size: 1.3rem;
-    margin: 0.5rem 0 1rem 0;
+  font-size: 1.3rem;
+  margin: 0.5rem 0 1rem 0;
 }
 
 /* ==========================================
    FOOTER
    ========================================== */
 .footer {
-    text-align: center;
-    padding: 3rem 1rem;
-    border-top: 1px solid #333;
-    font-size: 0.9rem;
-    color: #aaa;
+  text-align: center;
+  padding: 3rem 1rem;
+  border-top: 1px solid #333;
+  font-size: 0.9rem;
+  color: #aaa;
 }
 
 .footer__socials {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .footer__socials a {
-    color: var(--text-light);
-    text-decoration: none;
-    margin-left: 15px;
-    font-weight: bold;
-    transition: color 0.3s ease;
+  color: var(--text-light);
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .footer__socials a:hover {
-    color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 /* ==========================================
    LOGIN FORM
    ========================================== */
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: left;
-    max-width: 400px;
-    margin: 0 auto 2rem auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
 }
 
 .login-form__group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .login-form__label {
-    font-weight: 700;
-    color: var(--text-light);
-    font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-light);
+  font-size: 0.95rem;
 }
 
 .login-form__input {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #333;
-    border: 1px solid #555;
-    color: var(--text-light);
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #333;
+  border: 1px solid #555;
+  color: var(--text-light);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .login-form__input:focus {
-    outline: none;
-    border-color: var(--brand-red);
+  outline: none;
+  border-color: var(--brand-red);
 }
 
 .login-form__btn,
 .login-form__google-btn {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
 }
 
 .login-form__divider {
-    text-align: center;
-    color: #888;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+  text-align: center;
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
 }
 
 .login-form__signup-text {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: #aaa; 
-    text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #aaa;
+  text-align: center;
 }
 
 .login-form__signup-link {
-    color: var(--brand-red);
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
+  color: var(--brand-red);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .login-form__signup-link:hover {
-    color: var(--text-light);
-    text-decoration: underline;
+  color: var(--text-light);
+  text-decoration: underline;
 }
 
 /* ==========================================
    VALETING / DETAILING MENU CARDS
    ========================================== */
 .valeting-preview__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 2rem;
-    margin-top: 6rem; /* Ensures the grid sits lower down the page */
-    margin-bottom: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 6rem; /* Ensures the grid sits lower down the page */
+  margin-bottom: 4rem;
 }
 
 .separation {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: bold;
 }
 
 .menu-card {
-    background-color: #2a2a2a; 
-    padding: 2rem;
-    border-radius: 8px; 
-    border: 1px solid #444; 
-    text-align: center; /* Centered text to match your second block */
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Flexbox setup for centered content */
+  background-color: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  text-align: center; /* Centered text to match your second block */
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Flexbox setup for centered content */
 }
 
 .menu-card:hover {
-    transform: translateY(-5px); 
-    border-color: var(--brand-red); 
+  transform: translateY(-5px);
+  border-color: var(--brand-red);
 }
 
 .menu-card__title {
-    color: var(--text-light);
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--brand-red); 
-    display: inline-block;
-    padding-bottom: 5px;
+  color: var(--text-light);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--brand-red);
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
 .menu-card__desc {
-    color: #ccc;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 2rem; 
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .menu-card__btn {
-    margin-top: auto; 
-    width: 100%;      
-    text-align: center;
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
 }
 
 .return-valeting {
-    margin-top: 5rem;
-    border-top: 1px solid #444;
-    padding-top: 3rem;
-    text-align: center;
+  margin-top: 5rem;
+  border-top: 1px solid #444;
+  padding-top: 3rem;
+  text-align: center;
 }
 
 .menu-card--highlight {
-    border-color: var(--brand-red);
-    background-color: #222;
-    margin: 2rem auto 0 auto;
-    max-width: 500px;
+  border-color: var(--brand-red);
+  background-color: #222;
+  margin: 2rem auto 0 auto;
+  max-width: 500px;
 }
 
 /* ==========================================
    COMING SOON PAGE
    ========================================== */
 .coming-soon-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh; 
-    text-align: center;
-    padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
 }
 
 .coming-soon__title {
-    font-size: 3rem;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-size: 3rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .coming-soon__title span {
-    color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 .coming-soon__desc {
-    font-size: 1.1rem;
-    color: #ccc;
-    max-width: 600px;
-    margin: 0 auto 2.5rem auto;
-    line-height: 1.6;
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+  line-height: 1.6;
 }
 
 /* ==========================================
    GLOBAL ANIMATIONS
    ========================================== */
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================
    CONTACT FORM
    ========================================== */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: left;
-    max-width: 600px; /* Slightly wider than the login form to accommodate the message box */
-    margin: 2rem auto 4rem auto; 
-    background-color: #2a2a2a;
-    padding: 2.5rem;
-    border-radius: 8px;
-    border: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+  max-width: 600px; /* Slightly wider than the login form to accommodate the message box */
+  margin: 2rem auto 4rem auto;
+  background-color: #2a2a2a;
+  padding: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid #444;
 }
 
 .contact-form__group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .contact-form__label {
-    font-weight: 700;
-    color: var(--text-light);
-    font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-light);
+  font-size: 0.95rem;
 }
 
 /* This targets the text inputs, the dropdown menu, and the message box equally */
 .contact-form__input {
-    width: 100%;
-    padding: 1rem;
-    background-color: #333;
-    border: 1px solid #555;
-    color: var(--text-light);
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    font-family: inherit; /* Ensures the textarea uses your main font */
+  width: 100%;
+  padding: 1rem;
+  background-color: #333;
+  border: 1px solid #555;
+  color: var(--text-light);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  font-family: inherit; /* Ensures the textarea uses your main font */
 }
 
 .contact-form__input:focus {
-    outline: none;
-    border-color: var(--brand-red);
+  outline: none;
+  border-color: var(--brand-red);
 }
 
 /* Specific styling so the dropdown menu looks clean on dark mode */
 select.contact-form__input {
-    cursor: pointer;
-    appearance: none; /* Removes default browser styling arrows */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px top 50%;
+  cursor: pointer;
+  appearance: none; /* Removes default browser styling arrows */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
 }
 
 .contact-form__textarea {
-    resize: vertical; /* Only allows the user to drag the box taller, not wider */
+  resize: vertical; /* Only allows the user to drag the box taller, not wider */
 }
 
 .contact-form__btn {
-    margin-top: 1rem;
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
 }
 
 /* ==========================================
    ADMIN DASHBOARD LAYOUT
    ========================================== */
 .admin-body {
-    background-color: #1a1a1a; /* Even darker than the main site for a software feel */
-    margin: 0;
-    height: 100vh;
-    overflow: hidden; /* Prevents the whole page from scrolling, only the main content */
+  background-color: #1a1a1a; /* Even darker than the main site for a software feel */
+  margin: 0;
+  height: 100vh;
+  overflow: hidden; /* Prevents the whole page from scrolling, only the main content */
 }
 
 .admin-layout {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 
 /* SIDEBAR */
 .admin-sidebar {
-    width: 480px;
-    background-color: #222;
-    border-right: 1px solid #333;
-    display: flex;
-    flex-direction: column;
+  width: 480px;
+  background-color: #222;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-sidebar__logo {
-    padding: 2rem;
-    text-align: center;
-    border-bottom: 1px solid #333;
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #333;
 }
 
 .admin-sidebar__logo h2 {
-    font-size: 2rem;
-    letter-spacing: -1px;
+  font-size: 2rem;
+  letter-spacing: -1px;
 }
 
 .admin-sidebar__logo span {
-    color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 .admin-sidebar__logo p {
-    color: #888;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .admin-nav {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
 }
 
 .admin-nav__link {
-    padding: 1rem 2rem;
-    color: #ccc;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    border-left: 4px solid transparent;
+  padding: 1rem 2rem;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
 }
 
-.admin-nav__link:hover, .admin-nav__link--active {
-    background-color: #2a2a2a;
-    color: var(--text-light);
-    border-left-color: var(--brand-red);
+.admin-nav__link:hover,
+.admin-nav__link--active {
+  background-color: #2a2a2a;
+  color: var(--text-light);
+  border-left-color: var(--brand-red);
 }
 
 .admin-nav__link--logout {
-    margin-top: auto;
-    color: #ff4c4c;
+  margin-top: auto;
+  color: #ff4c4c;
 }
 
 /* MAIN CONTENT */
 .admin-main {
-    flex-grow: 1;
-    padding: 3rem;
-    overflow-y: auto; /* Allows scrolling inside the dashboard area */
+  flex-grow: 1;
+  padding: 3rem;
+  overflow-y: auto; /* Allows scrolling inside the dashboard area */
 }
 
 .admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
 }
 
 .admin-header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
 }
 
 #admin-name {
-    color: var(--brand-red); /* Makes the first name pop! */
+  color: var(--brand-red); /* Makes the first name pop! */
 }
 
 /* CARDS & STATS */
 .admin-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .admin-card {
-    background-color: #222;
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid #333;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background-color: #222;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .admin-card__number {
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--brand-red);
-    margin-top: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--brand-red);
+  margin-top: 1rem;
 }
 
 /* ADMIN TABLE */
 .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
 }
 
-.admin-table th, .admin-table td {
-    padding: 1.2rem;
-    text-align: left;
-    border-bottom: 1px solid #333;
+.admin-table th,
+.admin-table td {
+  padding: 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
 }
 
 .admin-table th {
-    color: #888;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
 }
 
 .status--active {
-    background-color: rgba(0, 204, 0, 0.1);
-    color: #00cc00;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
+  background-color: rgba(0, 204, 0, 0.1);
+  color: #00cc00;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 .action-link {
-    color: var(--text-light);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 .action-link:hover {
-    color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 .action-link.delete:hover {
-    color: #ff4c4c;
+  color: #ff4c4c;
 }
 
 /* ==========================================
    ADMIN MODAL (POP-UP)
    ========================================== */
 .admin-modal {
-    display: none; /* Hidden by default! JavaScript will change this to 'flex' */
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(4px); /* Adds a premium blur to the background */
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+  display: none; /* Hidden by default! JavaScript will change this to 'flex' */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px); /* Adds a premium blur to the background */
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .admin-modal--active {
-    display: flex; /* The class JavaScript will add to reveal the modal */
-    animation: popIn 0.3s ease-out;
+  display: flex; /* The class JavaScript will add to reveal the modal */
+  animation: popIn 0.3s ease-out;
 }
 
 .admin-modal__content {
-    background-color: #222;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 8px;
-    border: 1px solid #444;
-    padding: 2rem;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+  background-color: #222;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  padding: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 .admin-modal__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 1rem;
 }
 
 .admin-modal__close {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .admin-modal__close:hover {
-    color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 /* Modal Form Specifics */
 .admin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .admin-form__group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .admin-form label {
-    font-size: 0.9rem;
-    color: #ccc;
-    font-weight: bold;
+  font-size: 0.9rem;
+  color: #ccc;
+  font-weight: bold;
 }
 
 .admin-form__input {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #1a1a1a;
-    border: 1px solid #444;
-    color: var(--text-light);
-    border-radius: 4px;
-    font-size: 1rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  color: var(--text-light);
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 .admin-form__input:focus {
-    outline: none;
-    border-color: var(--brand-red);
+  outline: none;
+  border-color: var(--brand-red);
 }
 
 .admin-form__textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .admin-form__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* =========================================
@@ -835,7 +861,7 @@ select.contact-form__input {
   .admin-content {
     /* This wrapper lets you swipe left/right on the table without breaking the page */
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
     margin-bottom: 2rem;
   }
 
@@ -858,4 +884,185 @@ select.contact-form__input {
     align-items: flex-start;
     gap: 1rem;
   }
+}
+
+/* =========================================
+     PUBLIC PAGES: Valeting & Detailing Grids
+     ========================================= */
+.valeting-preview__grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Stacks the package cards into a single neat column */
+  gap: 1.5rem;
+  padding: 0 1rem; /* Prevents cards from touching the screen edges */
+}
+
+.menu-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+     ADMIN DASHBOARD: "Current Valeting Menu"
+     ========================================= */
+.admin-card {
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto; /* Keeps the horizontal scroll completely contained inside the card */
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+  min-width: 500px; /* Stops the text from crushing together on small screens */
+}
+
+/* =========================================
+   OUR WORK GALLERY
+   ========================================= */
+.our_work {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.our_work h2 {
+  margin-bottom: 1rem;
+}
+
+.our_work p {
+  margin-bottom: 3rem;
+  color: #ffffff;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The Grid Container */
+.work-grid {
+  display: grid;
+  /* Desktop: 4 columns, 2 rows */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Image Cards */
+.work-grid__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px; /* Clean, modern corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft premium shadow */
+  aspect-ratio: 4 / 3; /* Forces all images to be the exact same shape */
+  background-color: #f4f4f4; /* Placeholder color while images load */
+}
+
+/* The Images */
+.work-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents stretching or squishing */
+  transition: transform 0.4s ease; /* Sets up the smooth hover animation */
+}
+
+/* Hover Effect: Smooth Zoom */
+.work-grid__item:hover img {
+  transform: scale(1.08);
+}
+
+/* =========================================
+     OUR WORK GALLERY (MOBILE)
+     ========================================= */
+.work-grid {
+  /* Tablet & Large Phones: 2 columns, 4 rows */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  /* Small Phones: 1 column */
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   FAQ ACCORDION SECTION
+   ========================================= */
+.faq-section {
+  padding: 4rem 1rem;
+  max-width: 800px;
+  margin: 0 auto; /* Centers the FAQ on the screen */
+}
+
+.faq-section h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.faq-subtitle {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* The Clickable Button */
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background-color: #f9f9f9;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+/* The Hidden Answer */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background-color: #fafafa;
+}
+
+.faq-answer p {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  margin: 0;
+  color: #424242;
+  line-height: 1.6;
+}
+
+/* Active State (When Opened) */
+.faq-item.active .faq-answer {
+  max-height: 200px; /* Expands to show the text */
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg); /* Turns the '+' into an 'x' */
 }

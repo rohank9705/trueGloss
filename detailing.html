@@ -6,6 +6,15 @@
     <title>True Gloss | Premium Auto Detailing & Valeting</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSTJM5PNVS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RSTJM5PNVS');
+</script>
 <body>
 
     <header class="header">
@@ -43,6 +52,34 @@
             
             <div class="valeting-preview__grid" id="detailingPackagesGrid"></div>
         </section>
+
+        <section class="faq-section">
+        <h2>Detailing & Correction FAQ</h2>
+        <p class="faq-subtitle">Common questions about paint correction and ceramic coatings.</p>
+        
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">What is the difference between valeting and detailing? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Valeting is the thorough cleaning of your vehicle's interior and exterior. Detailing goes a step further, focusing on restoration—such as machine polishing to remove scratches (paint correction) and applying long-term protection like ceramic coatings.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">Will detailing remove deep scratches? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Our machine polishing process permanently removes swirl marks, holograms, and light-to-medium scratches. As a general rule, if you can run your fingernail across a scratch and it catches, it is too deep to safely remove completely, but its appearance will still be massively reduced.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">How long does a ceramic coating last? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Depending on the specific grade of ceramic coating you choose and how well the vehicle is maintained afterwards, our coatings offer durable, high-gloss protection for anywhere between 1 to 7 years.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
@@ -57,8 +94,27 @@
     </footer>
 
     <script>
-        const packagesGrid = document.getElementById('detailingPackagesGrid');
+        // --- FAQ ACCORDION LOGIC ---
+      const faqItems = document.querySelectorAll('.faq-item');
 
+      faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        
+        questionBtn.addEventListener('click', () => {
+          // Check if the one we clicked is already open
+          const isOpen = item.classList.contains('active');
+
+          // First, close all FAQ items so only one stays open at a time
+          faqItems.forEach(faq => faq.classList.remove('active'));
+
+          // If the one we clicked wasn't open, open it now
+          if (!isOpen) {
+            item.classList.add('active');
+          }
+        });
+      });
+        const packagesGrid = document.getElementById('detailingPackagesGrid');
+        packagesGrid.innerHTML = "<p><em>Loading our live service menu... this might take a few seconds.</em></p>";
         const loadDetailingPackages = async () => {
             try {
                 const response = await fetch("https://truegloss.onrender.com/api/packages");
