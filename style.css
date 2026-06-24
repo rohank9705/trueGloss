@@ -15,10 +15,45 @@
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: var(--text-light);
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: "Inter", sans-serif;
+  background: radial-gradient(
+    circle at 50% 10%,
+    #321313 0%,
+    var(--bg-dark) 40%
+  );
+  background-attachment: fixed;
+  color: var(--text-light); /* Restores your white text! */
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   SUBTLE BACKGROUND MESH
+   ========================================= */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Creates a tiny, faint dot pattern */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1.5px);
+  background-size: 20px 20px;
+  pointer-events: none; /* Stops it from blocking clicks */
+  z-index: -1; /* Keeps it behind your text and images */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-light); /* Keeps your headings white */
 }
 
 /* THE GLOBAL FADE-IN FIX: This makes every page fade in smoothly */
@@ -114,6 +149,7 @@ body {
   background-position: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease;
+  border-top: 3px solid var(--brand-red);
 }
 
 .service-card:hover {
@@ -174,11 +210,20 @@ body {
   font-size: 0.9rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
   background-color: var(--brand-red);
   border-color: var(--brand-red);
+  transform: translateY(-3px); /* Lifts the button up */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Deepens the shadow */
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: translateY(1px); /* Creates a realistic "click" pressing effect */
 }
 
 /* ==========================================
@@ -312,12 +357,18 @@ body {
   color: var(--text-light);
   border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  border: 1px solid #ccc;
 }
 
 .login-form__input:focus {
   outline: none;
   border-color: var(--brand-red);
+  outline: none;
+  border-color: #333; /* Changes border to black */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
 }
 
 .login-form__btn,
@@ -372,17 +423,21 @@ body {
 }
 
 .menu-card {
-  background-color: #2a2a2a;
+  background-color: rgba(42,42,42,0.6); /* Makes the background slightly transparent */
   padding: 2rem;
+  backdrop-filter: blur(12px); /* Creates the frosted glass effect */
+  -webkit-backdrop-filter: blur(12px); /* For Safari support */
   border-radius: 8px;
-  border: 1px solid #444;
+  border: 1px solid rgba(255, 255, 255, 0.08); /* A super faint white glowing edge */
   text-align: center; /* Centered text to match your second block */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Deeper, softer shadow */
   transition:
     transform 0.3s ease,
     border-color 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center; /* Flexbox setup for centered content */
+  border-top: 3px solid var(--brand-red);
 }
 
 .menu-card:hover {
@@ -482,10 +537,14 @@ body {
   text-align: left;
   max-width: 600px; /* Slightly wider than the login form to accommodate the message box */
   margin: 2rem auto 4rem auto;
-  background-color: #2a2a2a;
+  background-color: rgba(42, 42, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 2.5rem;
   border-radius: 8px;
-  border: 1px solid #444;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-top: 3px solid var(--brand-red);
 }
 
 .contact-form__group {
@@ -511,11 +570,22 @@ body {
   font-size: 1rem;
   transition: border-color 0.3s ease;
   font-family: inherit; /* Ensures the textarea uses your main font */
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  border: 1px solid #ccc;
 }
 
 .contact-form__input:focus {
   outline: none;
   border-color: var(--brand-red);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  border: 1px solid #ccc;
+  outline: none;
+  border-color: #333; /* Changes border to black */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
 }
 
 /* Specific styling so the dropdown menu looks clean on dark mode */
@@ -643,11 +713,13 @@ select.contact-form__input {
 }
 
 .admin-card {
-  background-color: #222;
+  background-color: rgba(42, 42, 42, 0.6);
   padding: 2rem;
   border-radius: 8px;
-  border: 1px solid #333;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .admin-card__number {
@@ -784,11 +856,18 @@ select.contact-form__input {
   color: var(--text-light);
   border-radius: 4px;
   font-size: 1rem;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  border: 1px solid #ccc;
 }
 
 .admin-form__input:focus {
   outline: none;
   border-color: var(--brand-red);
+  outline: none;
+  border-color: #333; /* Changes border to black */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
 }
 
 .admin-form__textarea {
@@ -811,6 +890,40 @@ select.contact-form__input {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* =========================================
+   ABOUT US: PERSONAL PORTRAITS
+   ========================================= */
+.personal_pics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Forces exactly 2 columns */
+  gap: 2rem; 
+  max-width: 800px; /* Keeps the images from getting ridiculously huge on desktop */
+  margin: 2rem auto 4rem auto; /* Centers the grid and adds breathing room below */
+}
+
+.seff, .ateeq {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px; /* Matches your other image cards */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Premium depth shadow */
+  aspect-ratio: 1 / 1; /* Makes the portraits perfectly square. Change to 4/3 to match car pics exactly! */
+  background-color: #2a2a2a; 
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Frosted glass border */
+  border-bottom: 4px solid var(--brand-red); /* The True Gloss racing line */
+}
+
+.seff img, .ateeq img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents the faces from squishing or stretching */
+  transition: transform 0.4s ease; /* Preps the smooth hover animation */
+}
+
+/* The Hover Zoom Effect */
+.seff:hover img, .ateeq:hover img {
+  transform: scale(1.08); 
 }
 
 /* =========================================
@@ -884,6 +997,15 @@ select.contact-form__input {
     align-items: flex-start;
     gap: 1rem;
   }
+
+  /* =========================================
+     ABOUT US: PORTRAITS (MOBILE)
+     ========================================= */
+  .personal_pics {
+    grid-template-columns: 1fr; /* Stacks the portraits into a single column */
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
 }
 
 /* =========================================
@@ -953,6 +1075,8 @@ select.contact-form__input {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft premium shadow */
   aspect-ratio: 4 / 3; /* Forces all images to be the exact same shape */
   background-color: #f4f4f4; /* Placeholder color while images load */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 4px solid var(--brand-red);
 }
 
 /* The Images */
@@ -1065,4 +1189,18 @@ select.contact-form__input {
 
 .faq-item.active .faq-icon {
   transform: rotate(45deg); /* Turns the '+' into an 'x' */
+}
+
+/* =========================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px); /* Pushes the element 40px down */
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); /* Super smooth deceleration */
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0); /* Snaps it back into its original place */
 }
