@@ -22,7 +22,7 @@ body {
     var(--bg-dark) 40%
   );
   background-attachment: fixed;
-  color: var(--text-light); /* Restores your white text! */
+  color: var(--text-light); 
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -37,11 +37,10 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Creates a tiny, faint dot pattern */
   background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1.5px);
   background-size: 20px 20px;
-  pointer-events: none; /* Stops it from blocking clicks */
-  z-index: -1; /* Keeps it behind your text and images */
+  pointer-events: none; 
+  z-index: -1; 
 }
 
 h1,
@@ -53,10 +52,9 @@ h6 {
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: var(--text-light); /* Keeps your headings white */
+  color: var(--text-light);
 }
 
-/* THE GLOBAL FADE-IN FIX: This makes every page fade in smoothly */
 .main {
   animation: fadeIn 0.8s ease-in-out;
 }
@@ -217,13 +215,13 @@ h6 {
 .btn:hover {
   background-color: var(--brand-red);
   border-color: var(--brand-red);
-  transform: translateY(-3px); /* Lifts the button up */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Deepens the shadow */
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
   cursor: pointer;
 }
 
 .btn:active {
-  transform: translateY(1px); /* Creates a realistic "click" pressing effect */
+  transform: translateY(1px); 
 }
 
 /* ==========================================
@@ -367,8 +365,8 @@ h6 {
   outline: none;
   border-color: var(--brand-red);
   outline: none;
-  border-color: #333; /* Changes border to black */
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
+  border-color: #333; 
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); 
 }
 
 .login-form__btn,
@@ -412,7 +410,7 @@ h6 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-top: 6rem; /* Ensures the grid sits lower down the page */
+  margin-top: 6rem; 
   margin-bottom: 4rem;
 }
 
@@ -423,20 +421,20 @@ h6 {
 }
 
 .menu-card {
-  background-color: rgba(42,42,42,0.6); /* Makes the background slightly transparent */
+  background-color: rgba(42,42,42,0.6); 
   padding: 2rem;
-  backdrop-filter: blur(12px); /* Creates the frosted glass effect */
-  -webkit-backdrop-filter: blur(12px); /* For Safari support */
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px); 
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08); /* A super faint white glowing edge */
-  text-align: center; /* Centered text to match your second block */
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Deeper, softer shadow */
+  border: 1px solid rgba(255, 255, 255, 0.08); 
+  text-align: center; 
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
   transition:
     transform 0.3s ease,
     border-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Flexbox setup for centered content */
+  align-items: center; 
   border-top: 3px solid var(--brand-red);
 }
 
@@ -535,7 +533,7 @@ h6 {
   flex-direction: column;
   gap: 1.5rem;
   text-align: left;
-  max-width: 600px; /* Slightly wider than the login form to accommodate the message box */
+  max-width: 600px; 
   margin: 2rem auto 4rem auto;
   background-color: rgba(42, 42, 42, 0.6);
   backdrop-filter: blur(12px);
@@ -559,7 +557,6 @@ h6 {
   font-size: 0.95rem;
 }
 
-/* This targets the text inputs, the dropdown menu, and the message box equally */
 .contact-form__input {
   width: 100%;
   padding: 1rem;
@@ -569,7 +566,7 @@ h6 {
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  font-family: inherit; /* Ensures the textarea uses your main font */
+  font-family: inherit; 
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
@@ -584,21 +581,20 @@ h6 {
     box-shadow 0.3s ease;
   border: 1px solid #ccc;
   outline: none;
-  border-color: #333; /* Changes border to black */
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
+  border-color: #333; 
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); 
 }
 
-/* Specific styling so the dropdown menu looks clean on dark mode */
 select.contact-form__input {
   cursor: pointer;
-  appearance: none; /* Removes default browser styling arrows */
+  appearance: none; 
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
   background-repeat: no-repeat;
   background-position: right 10px top 50%;
 }
 
 .contact-form__textarea {
-  resize: vertical; /* Only allows the user to drag the box taller, not wider */
+  resize: vertical; 
 }
 
 .contact-form__btn {
@@ -612,10 +608,10 @@ select.contact-form__input {
    ADMIN DASHBOARD LAYOUT
    ========================================== */
 .admin-body {
-  background-color: #1a1a1a; /* Even darker than the main site for a software feel */
+  background-color: #1a1a1a; 
   margin: 0;
   height: 100vh;
-  overflow: hidden; /* Prevents the whole page from scrolling, only the main content */
+  overflow: hidden; 
 }
 
 .admin-layout {
@@ -685,7 +681,7 @@ select.contact-form__input {
 .admin-main {
   flex-grow: 1;
   padding: 3rem;
-  overflow-y: auto; /* Allows scrolling inside the dashboard area */
+  overflow-y: auto; 
 }
 
 .admin-header {
@@ -701,7 +697,7 @@ select.contact-form__input {
 }
 
 #admin-name {
-  color: var(--brand-red); /* Makes the first name pop! */
+  color: var(--brand-red);
 }
 
 /* CARDS & STATS */
@@ -778,14 +774,14 @@ select.contact-form__input {
    ADMIN MODAL (POP-UP)
    ========================================== */
 .admin-modal {
-  display: none; /* Hidden by default! JavaScript will change this to 'flex' */
+  display: none; 
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px); /* Adds a premium blur to the background */
+  backdrop-filter: blur(4px); 
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -793,7 +789,7 @@ select.contact-form__input {
 }
 
 .admin-modal--active {
-  display: flex; /* The class JavaScript will add to reveal the modal */
+  display: flex; 
   animation: popIn 0.3s ease-out;
 }
 
@@ -866,8 +862,8 @@ select.contact-form__input {
   outline: none;
   border-color: var(--brand-red);
   outline: none;
-  border-color: #333; /* Changes border to black */
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Adds a premium focus ring */
+  border-color: #333; 
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); 
 }
 
 .admin-form__textarea {
@@ -897,31 +893,30 @@ select.contact-form__input {
    ========================================= */
 .personal_pics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Forces exactly 2 columns */
+  grid-template-columns: repeat(2, 1fr); 
   gap: 2rem; 
-  max-width: 800px; /* Keeps the images from getting ridiculously huge on desktop */
-  margin: 2rem auto 4rem auto; /* Centers the grid and adds breathing room below */
+  max-width: 800px; 
+  margin: 2rem auto 4rem auto; 
 }
 
 .seff, .ateeq {
   position: relative;
   overflow: hidden;
-  border-radius: 8px; /* Matches your other image cards */
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Premium depth shadow */
-  aspect-ratio: 1 / 1; /* Makes the portraits perfectly square. Change to 4/3 to match car pics exactly! */
+  border-radius: 8px; 
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
+  aspect-ratio: 1 / 1;
   background-color: #2a2a2a; 
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Frosted glass border */
-  border-bottom: 4px solid var(--brand-red); /* The True Gloss racing line */
+  border: 1px solid rgba(255, 255, 255, 0.08); 
+  border-bottom: 4px solid var(--brand-red); 
 }
 
 .seff img, .ateeq img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Prevents the faces from squishing or stretching */
-  transition: transform 0.4s ease; /* Preps the smooth hover animation */
+  object-fit: cover;
+  transition: transform 0.4s ease; 
 }
 
-/* The Hover Zoom Effect */
 .seff:hover img, .ateeq:hover img {
   transform: scale(1.08); 
 }
@@ -931,7 +926,6 @@ select.contact-form__input {
    ========================================= */
 
 @media (max-width: 768px) {
-  /* 1. Move the Sidebar to the top */
   .admin-layout {
     flex-direction: column;
   }
@@ -944,7 +938,7 @@ select.contact-form__input {
     flex-direction: column;
     align-items: center;
     border-right: none;
-    border-bottom: 1px solid #eee; /* Adjust color to match your theme */
+    border-bottom: 1px solid #eee; 
   }
 
   /* Make navigation links sit side-by-side on mobile */
@@ -966,27 +960,25 @@ select.contact-form__input {
   /* 2. Stack the Stats Cards */
   .admin-stats {
     display: grid;
-    grid-template-columns: 1fr; /* Stacks them one on top of the other */
+    grid-template-columns: 1fr; 
     gap: 1rem;
   }
 
   /* 3. Make the Table horizontally scrollable */
   .admin-content {
-    /* This wrapper lets you swipe left/right on the table without breaking the page */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin-bottom: 2rem;
   }
 
   .admin-table {
-    min-width: 600px; /* Forces the table to stay wide enough to read */
+    min-width: 600px; 
   }
 
-  /* 4. Fix the Modal so it fits on small screens */
   .admin-modal__content {
     width: 95%;
-    max-height: 90vh; /* Prevents it from being taller than the screen */
-    overflow-y: auto; /* Adds a vertical scrollbar inside the modal if needed */
+    max-height: 90vh;
+    overflow-y: auto; 
     padding: 1.5rem;
     margin: 5% auto;
   }

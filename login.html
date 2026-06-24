@@ -112,7 +112,7 @@
       const loginForm = document.getElementById("loginForm");
 
       loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault(); // Stop the page from refreshing
+        e.preventDefault(); 
 
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -127,10 +127,9 @@
           const result = await response.json();
 
           if (response.ok) {
-            localStorage.setItem("isLoggedIn", "true"); // Set the "Gatekeeper" key
+            localStorage.setItem("isLoggedIn", "true"); 
             window.location.href = "dashboard.html";
           } else {
-            // Show an error message
             alert(result.message || "Login failed.");
           }
         } catch (error) {

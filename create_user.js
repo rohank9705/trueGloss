@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./truegloss.db');
 
-// Replace these with your desired credentials
 const email = 'truegloss.tg@gmail.com';
 const password = 'JobbyCake1'; 
 const role = 'admin';

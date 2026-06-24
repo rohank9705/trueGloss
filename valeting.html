@@ -121,20 +121,16 @@
     </footer>
 
     <script>
-        // --- FAQ ACCORDION LOGIC ---
       const faqItems = document.querySelectorAll('.faq-item');
 
       faqItems.forEach(item => {
         const questionBtn = item.querySelector('.faq-question');
         
         questionBtn.addEventListener('click', () => {
-          // Check if the one we clicked is already open
           const isOpen = item.classList.contains('active');
 
-          // First, close all FAQ items so only one stays open at a time
           faqItems.forEach(faq => faq.classList.remove('active'));
 
-          // If the one we clicked wasn't open, open it now
           if (!isOpen) {
             item.classList.add('active');
           }
@@ -144,22 +140,17 @@
       packagesGrid.innerHTML = "<p><em>Loading our live service menu... this might take a few seconds.</em></p>";
       const loadPublicPackages = async () => {
         try {
-          // 1. Fetch the data from your live database
           const response = await fetch("https://truegloss.onrender.com/api/packages");
           const packages = await response.json();
 
-          // 2. Filter out drafts! Customers should ONLY see 'active' packages
           const livePackages = packages.filter(pkg => pkg.status === 'active' && pkg.category === 'valeting');
 
-          // Clear the grid just in case
           packagesGrid.innerHTML = "";
 
-          // 3. Loop through the active packages and build the HTML cards
           livePackages.forEach((pkg) => {
             const card = document.createElement("div");
             card.className = "menu-card";
 
-            // We inject your exact CSS classes so it perfectly matches your design
             card.innerHTML = `
                         <h3 class="menu-card__title">${pkg.name}</h3>
                         <p class="menu-card__desc">${pkg.description}</p>
@@ -172,7 +163,6 @@
             packagesGrid.appendChild(card);
           });
 
-          // If there are no live packages yet, show a polite message
           if (livePackages.length === 0) {
             packagesGrid.innerHTML =
               "<p>We are currently updating our service menu. Please check back shortly!</p>";
@@ -184,7 +174,6 @@
         }
       };
 
-      // Run the script instantly when the customer opens the page
       loadPublicPackages();
     </script>
 

@@ -60,7 +60,6 @@
 
     <!-- JAVASCRIPT -->
     <script>
-      // 1. Fetch the number of active packages for the stat card
       const loadDashboardStats = async () => {
         try {
             const response = await fetch("https://truegloss.onrender.com/api/packages");
@@ -73,7 +72,6 @@
         }
       };
 
-      // 2. Fetch the recent enquiries list
       const loadEnquiries = async () => {
         try {
             const response = await fetch("https://truegloss.onrender.com/api/enquiries");

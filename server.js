@@ -1,15 +1,15 @@
-require('dotenv').config(); // Loaded first to keep keys secure
+require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Added missing PORT
+const PORT = process.env.PORT || 3000; 
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // <-- ADD THIS LINE
+app.use(express.static(__dirname));
 
 // Connect to Neon.tech Cloud Database
 const db = new Pool({
@@ -17,7 +17,6 @@ const db = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-// --- ADD THIS BLOCK ---
 // Catch unexpected database disconnects so the server doesn't crash
 db.on('error', (err, client) => {
     console.error('Unexpected database disconnect (Neon sleep). Server is still running.', err.message);
@@ -28,12 +27,10 @@ db.connect((err) => {
         console.error('Database connection error:', err.stack);
     } else {
         console.log('Connected to the True Gloss Cloud Database!');
-        initializeTables(); // Runs the schema build as soon as we connect
+        initializeTables(); 
     }
 });
 
-// Build the Schema: Creates tables if they don't exist yet
-// Postgres uses SERIAL PRIMARY KEY instead of AUTOINCREMENT
 async function initializeTables() {
     try {
         await db.query(`
@@ -78,15 +75,13 @@ app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // We use $1 and $2 for Postgres instead of the old SQLite ?
         const result = await db.query(`SELECT * FROM users WHERE email = $1 AND password = $2`, [email, password]);
         
-        // If the database returns 0 rows, the user doesn't exist or password is wrong
         if (result.rows.length === 0) {
             return res.status(401).json({ message: "Invalid email or password." });
         }
         
-        // If we found a match, success!
+        
         res.status(200).json({ message: "Login successful" });
     } catch (err) {
         console.error("Login database error:", err);
@@ -95,7 +90,6 @@ app.post('/api/login', async (req, res) => {
 });
 
 // 3. The API Route: Saves packages to the cloud database
-// Changed '?' to '$1, $2, $3...' and 'db.run()' to 'db.query()'
 app.post('/api/packages', async (req, res) => {
     const { name, price, description, status, category } = req.body;
     const query = `
@@ -109,7 +103,7 @@ app.post('/api/packages', async (req, res) => {
         console.log(`SUCCESS: "${name}" was securely saved to the cloud!`);
         res.status(200).json({ 
             message: "Package securely saved!", 
-            packageId: result.rows[0].id // Postgres returns the new ID here
+            packageId: result.rows[0].id 
         });
     } catch (err) {
         console.error("Failed to save package:", err);
@@ -118,7 +112,6 @@ app.post('/api/packages', async (req, res) => {
 });
 
 // 4. Fetch All Packages
-// Changed 'db.all()' to 'db.query()'
 app.get('/api/packages', async (req, res) => {
     try {
         const result = await db.query(`SELECT * FROM packages ORDER BY id ASC`);
@@ -144,7 +137,6 @@ app.get('/api/enquiries', async (req, res) => {
 
 // 2. Save a new enquiry from the Contact Form
 app.post('/api/enquiries', async (req, res) => {
-    // Add department and car here
     const { department, name, email, car, message } = req.body;
     try {
         await db.query(
