@@ -225,6 +225,52 @@ h6 {
 }
 
 /* ==========================================
+   CREATOR TAG
+   ========================================== */
+.footer__creator {
+  margin-top: 2rem;
+  font-size: 0.75rem; /* Keeps it intentionally small */
+  color: #555; /* A muted, dark grey that blends into the background */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.footer__creator a {
+  color: #666; 
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Lights up when hovered */
+.footer__creator a:hover {
+  color: var(--text-light); /* Turns white on hover */
+  border-bottom: 1px solid var(--brand-red); /* Adds a subtle red underline */
+}
+
+/* ==========================================
+   SECRET ADMIN LOGIN (FOOTER)
+   ========================================== */
+.footer__admin {
+  margin-top: 1rem;
+}
+
+.footer__admin a {
+  color: #646464; /* A very dark grey that almost perfectly matches the background */
+  font-size: 0.7rem; /* Intentionally tiny */
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+/* Lights up True Gloss red only when you know exactly where to hover */
+.footer__admin a:hover {
+  color: var(--brand-red); 
+}
+
+/* ==========================================
    INNER PAGES (About, Contact, Products)
    ========================================== */
 .aboutus,
