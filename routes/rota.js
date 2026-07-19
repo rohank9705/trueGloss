@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../db'); // Your PostgreSQL connection pool
+const pool = require('../db'); 
 
-// GET /api/rota?startDate=YYYY-MM-DD
+// 1. GET 4-Week Rota (Hiding Completed Jobs)
 router.get('/rota', async (req, res) => {
     try {
         const { startDate } = req.query;
@@ -11,29 +11,24 @@ router.get('/rota', async (req, res) => {
             return res.status(400).json({ error: 'startDate query parameter is required' });
         }
 
-        // Calculate the end date exactly 28 days (4 weeks) later
         const start = new Date(startDate);
         const end = new Date(startDate);
-        end.setDate(start.getDate() + 27); // 27 additional days = 28 total days inclusive
+        end.setDate(start.getDate() + 27); 
 
         const formattedEndDate = end.toISOString().split('T')[0];
 
-        // Fetch all jobs falling within the 4-week window
+        // Added: AND status != 'Completed' so they vanish from the active list
         const queryText = `
             SELECT id, title, date::text, time_slot, assigned_to, status 
             FROM jobs 
-            WHERE date >= $1 AND date <= $2
+            WHERE date >= $1 AND date <= $2 AND status != 'Completed'
             ORDER BY date ASC, time_slot ASC;
         `;
         
         const { rows } = await pool.query(queryText, [startDate, formattedEndDate]);
         
         res.json({
-            meta: {
-                rangeStart: startDate,
-                rangeEnd: formattedEndDate,
-                totalJobs: rows.length
-            },
+            meta: { rangeStart: startDate, rangeEnd: formattedEndDate, totalJobs: rows.length },
             jobs: rows
         });
 
@@ -43,13 +38,13 @@ router.get('/rota', async (req, res) => {
     }
 });
 
-// POST /api/jobs - Log a new job on the rota
+// 2. POST Log a new job
 router.post('/jobs', async (req, res) => {
     try {
         const { title, date, time_slot, assigned_to } = req.body;
 
         if (!title || !date) {
-            return res.status(400).json({ error: 'Title and date are required fields' });
+            return res.status(400).json({ error: 'Title and date are required' });
         }
 
         const queryText = `
@@ -63,6 +58,21 @@ router.post('/jobs', async (req, res) => {
 
     } catch (err) {
         console.error('Error creating rota job:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// 3. PUT Mark Job as Completed (NEW ROUTE)
+router.put('/jobs/:id/complete', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const queryText = `UPDATE jobs SET status = 'Completed' WHERE id = $1`;
+        
+        await pool.query(queryText, [id]);
+        res.json({ message: 'Job marked as completed successfully' });
+
+    } catch (err) {
+        console.error('Error completing job:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

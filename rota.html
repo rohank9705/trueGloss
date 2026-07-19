@@ -137,7 +137,10 @@
                             <span style="font-size: 0.85em; color: #888;">📅 ${formattedDate} &nbsp;|&nbsp; ⏰ ${job.time_slot} &nbsp;|&nbsp; 👤 ${assignedStaff}</span>
                           </td>
                           <td style="vertical-align: middle;">
-                            <span class="status status--active">Scheduled</span>
+                            <span class="status status--active" style="margin-right: 10px;">Scheduled</span>
+                            <button onclick="completeJob(${job.id})" class="btn btn--primary" style="padding: 6px 12px; font-size: 12px; background-color: #28a745; border-color: #28a745;">
+                                ✔ Complete
+                            </button>
                           </td>
                       `;
                       container.appendChild(row);
@@ -178,6 +181,25 @@
           });
 
           loadRota();
+
+          // Function to mark a job as completed
+          window.completeJob = async (id) => {
+              if (!confirm("Mark this job as completed? It will be removed from the active rota.")) return;
+              
+              try {
+                  const response = await fetch(`https://truegloss.onrender.com/api/jobs/${id}/complete`, {
+                      method: 'PUT'
+                  });
+
+                  if (response.ok) {
+                      loadRota(); // Instantly refresh the table, causing the completed job to disappear
+                  } else {
+                      alert("Failed to update job status.");
+                  }
+              } catch (error) {
+                  console.error("Error completing job:", error);
+              }
+          };
       });
     </script>
   </body>
