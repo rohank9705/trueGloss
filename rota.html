@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Rota | True Gloss Admin</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/true-gloss-logo.png">
+
+    <!-- THE FRONT DOOR BOUNCER -->
+    <script>
+      if (!localStorage.getItem("isLoggedIn")) {
+        window.location.replace("login.html"); 
+      }
+    </script>
+  </head>
+  <body class="admin-body">
+    <div class="admin-layout">
+      
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <a href="index.html">
+          <img src="images/true-gloss-logo.png" alt="True Gloss Logo" class="header__logo-img" />
+        </a>
+        <nav class="admin-nav">
+          <a href="rota.html" class="admin-nav__link admin-nav__link--active">Rota</a>
+          <a href="dashboard.html" class="admin-nav__link">Dashboard</a>
+          <a href="manage-packages.html" class="admin-nav__link">Manage Packages</a>
+          <a href="index.html" class="admin-nav__link admin-nav__link--logout">Log Out</a>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-main">
+        <header class="admin-header">
+          <div class="admin-header__greeting">
+            <h1>Master Rota</h1>
+            <p>Schedule, assign, and manage valeting jobs across a 28-day window.</p>
+          </div>
+        </header>
+
+        <!-- Using a grid to split the content, but utilizing your standard .admin-card class -->
+        <section class="admin-content admin-content-grid">
+          
+          <!-- LEFT: Log a New Job Form -->
+          <div class="admin-card">
+            <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 1.25rem;">Log a New Job</h2>
+            <form id="add-job-form" class="admin-form">
+              <div class="admin-form__group">
+                <label for="job-title">Job Description / Customer</label>
+                <input type="text" id="job-title" class="admin-form__input" placeholder="e.g. Full Valet - BMW G22" required />
+              </div>
+              
+              <div class="admin-form__group">
+                <label for="job-date">Scheduled Date</label>
+                <input type="date" id="job-date" class="admin-form__input" required />
+              </div>
+              
+              <div class="admin-form__group">
+                <label for="job-time">Time Slot</label>
+                <select id="job-time" class="admin-form__input">
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="All Day">All Day</option>
+                </select>
+              </div>
+
+              <div class="admin-form__group">
+                <label for="job-assignee">Assign Staff</label>
+                <input type="text" id="job-assignee" class="admin-form__input" placeholder="e.g. Rohan" />
+              </div>
+              
+              <!-- Using your global primary button class -->
+              <button type="submit" class="btn btn--primary" style="width: 100%; margin-top: 10px;">+ Add New Job</button>
+            </form>
+          </div>
+
+          <!-- RIGHT: Rota Feed Display -->
+          <div class="admin-card">
+            <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 1.25rem;">Upcoming Schedule</h2>
+            
+            <!-- Swapped to your global admin-table class to match manage-packages.html -->
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Job Details</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="rota-display-container">
+                <tr><td colspan="2" style="text-align: center; color: gray;">Fetching current rota...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+      </main>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          
+          async function loadRota() {
+              const container = document.getElementById('rota-display-container');
+              const today = new Date().toISOString().split('T')[0]; 
+
+              try {
+                  const response = await fetch(`https://truegloss.onrender.com/api/rota?startDate=${today}`);
+                  const data = await response.json();
+
+                  if (!data.jobs || data.jobs.length === 0) {
+                      container.innerHTML = '<tr><td colspan="2" style="text-align: center; color: gray; padding: 20px;">No jobs logged for the next 4 weeks.</td></tr>';
+                      return;
+                  }
+
+                  container.innerHTML = ''; 
+                  
+                  data.jobs.forEach(job => {
+                      const row = document.createElement('tr');
+                      
+                      const formattedDate = new Date(job.date).toLocaleDateString('en-GB', {
+                          weekday: 'short', 
+                          day: 'numeric', 
+                          month: 'short'
+                      });
+
+                      const assignedStaff = job.assigned_to ? `Assigned: ${job.assigned_to}` : 'Unassigned';
+
+                      // Re-using the .status--active styling from manage-packages.html
+                      row.innerHTML = `
+                          <td>
+                            <strong style="font-size: 1.05em; display: block; margin-bottom: 6px; font-weight: 600;">${job.title}</strong>
+                            <span style="font-size: 0.85em; color: #888;">📅 ${formattedDate} &nbsp;|&nbsp; ⏰ ${job.time_slot} &nbsp;|&nbsp; 👤 ${assignedStaff}</span>
+                          </td>
+                          <td style="vertical-align: middle;">
+                            <span class="status status--active">Scheduled</span>
+                          </td>
+                      `;
+                      container.appendChild(row);
+                  });
+
+              } catch (error) {
+                  console.error('Error contacting Express API:', error);
+                  container.innerHTML = '<tr><td colspan="2" style="color: red; text-align: center;">Could not load rota configuration. Ensure server is online.</td></tr>';
+              }
+          }
+
+          document.getElementById('add-job-form').addEventListener('submit', async (e) => {
+              e.preventDefault();
+
+              const newJobPayload = {
+                  title: document.getElementById('job-title').value,
+                  date: document.getElementById('job-date').value,
+                  time_slot: document.getElementById('job-time').value,
+                  assigned_to: document.getElementById('job-assignee').value
+              };
+
+              try {
+                  const response = await fetch('https://truegloss.onrender.com/api/jobs', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(newJobPayload)
+                  });
+
+                  if (response.ok) {
+                      document.getElementById('add-job-form').reset();
+                      loadRota(); 
+                  } else {
+                      alert('Error recording job to server.');
+                  }
+              } catch (error) {
+                  console.error('Network failure trying to submit job:', error);
+              }
+          });
+
+          loadRota();
+      });
+    </script>
+  </body>
+</html> 

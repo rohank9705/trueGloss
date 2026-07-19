@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
-
+const rotaRouter = require('./routes/rota');
 const app = express();
 const PORT = process.env.PORT || 3000; 
 
@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
+app.use('/api', rotaRouter);
 
 // Connect to Neon.tech Cloud Database
 const db = new Pool({
