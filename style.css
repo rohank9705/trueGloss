@@ -946,8 +946,8 @@ select.contact-form__input {
    ========================================= */
 .personal_pics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 2rem; 
+  grid-template-columns: 1fr; /* Changes it to a single column */
+  place-items: center; /* Perfectly centers the image inside that column */
   max-width: 800px; 
   margin: 2rem auto 4rem auto; 
 }
