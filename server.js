@@ -1,7 +1,6 @@
 require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
 const rotaRouter = require('./routes/rota');
 const app = express();
 const PORT = process.env.PORT || 3000; 
@@ -12,11 +11,8 @@ app.use(express.json());
 app.use(express.static(__dirname));
 app.use('/api', rotaRouter);
 
-// Connect to Neon.tech Cloud Database
-const db = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
-});
+// Import the Neon.tech Cloud Database connection from db.js
+const db = require('./db');
 
 // Catch unexpected database disconnects so the server doesn't crash
 db.on('error', (err, client) => {
@@ -81,7 +77,6 @@ app.post('/api/login', async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(401).json({ message: "Invalid email or password." });
         }
-        
         
         res.status(200).json({ message: "Login successful" });
     } catch (err) {
