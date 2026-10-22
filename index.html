@@ -1,84 +1,127 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!--
+      ========================================
+      DOCUMENT METADATA & EXTERNAL RESOURCES
+      ========================================
+    -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>True Gloss | Premium Auto Detailing & Valeting</title>
+    <title>True Gloss | Premium Ceramic Coating & Vehicle Protection</title>
+    
     <link rel="stylesheet" href="style.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="images/true-gloss-logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  </head>
 
-</head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSTJM5PNVS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google Analytics Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSTJM5PNVS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RSTJM5PNVS');
+  </script>
 
-  gtag('config', 'G-RSTJM5PNVS');
-</script>
   <body>
+    <!--
+      ========================================
+      GLOBAL HEADER
+      ========================================
+    -->
     <header class="header">
       <div class="header__logo">
-    <a href="index.html">
-        <img
-            src="images/true-gloss-logo.png"
-            alt="True Gloss Detailing Logo"
-            class="header__logo-img"
-        />
-    </a>
-</div>
+        <a href="index.html">
+          <img src="images/true-gloss-logo.png" alt="True Gloss Detailing Logo" class="header__logo-img" />
+        </a>
       </div>
+      
       <nav class="header__nav">
-            <ul class="header__nav-list">
-                <li class="header__nav-item"><a href="index.html" class="header__nav-link header__nav-link--active">Home | Our Services</a></li>
-                <li class="header__nav-item"><a href="aboutus.html" class="header__nav-link">About Us</a></li>
-                <li class="header__nav-item"><a href="contact.html" class="header__nav-link">Contact</a></li>
-                <li class="header__nav-item"><a href="comingsoon.html" class="header__nav-link">Products Used</a></li>
-            </ul>
-        </nav>
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a href="index.html" class="header__nav-link header__nav-link--active">Home</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="detailing.html" class="header__nav-link">Ceramic Coating</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="valeting.html" class="header__nav-link">Routine Valeting</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="aboutus.html" class="header__nav-link">About Us</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="contact.html" class="header__nav-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
+    <!--
+      ========================================
+      MAIN SALES FUNNEL
+      ========================================
+    -->
     <main class="main">
-      <section class="services-preview reveal">
-        <div class="services-preview__header">
-          <h2>Our Core Services</h2>
-          <p>
-            Tailored care for every stage of your vehicle's life. Choose from
-            below to view the relevant packages.
+      
+      <!-- HERO SECTION: High-Intent Ceramic Focus -->
+      <section class="hero-premium gs-reveal">
+        <!-- <img src="images/4seriesback.jpeg" class="image_wrapper"> -->
+        <div class="hero-premium__content">
+          <span class="hero-premium__kicker">TRUE GLOSS DETAILING</span>
+          <h1 class="hero-premium__title">Premium Ceramic Coating & Professional Vehicle Protection</h1>
+          <p class="hero-premium__desc">
+            Enhance your vehicle's gloss and protect its paintwork with professional ceramic coating, tailored to your vehicle and your exact requirements.
           </p>
-        </div>
-
-        <div class="services-preview__grid">
-          <article class="service-card">
-            <h3 class="service-card__title">Premium Valeting</h3>
-            <p class="service-card__desc">
-              Looking to bring that showroom feel back to your car? View our valeting packages here. 
-            </p>
-            <a href="valeting.html" class="btn btn--secondary"
-              >Explore Valeting</a
-            >
-          </article>
-
-          <article class="service-card">
-            <h3 class="service-card__title">Paint Correction & Detailing</h3>
-            <p class="service-card__desc">
-              Multi-stage machine polishing to rejuvenate your paintwork, locked in with a premium ceramic coating for ultimate gloss. View our detailing packages here. 
-            </p>
-            <a href="detailing.html" class="btn btn--secondary"
-              >Explore Detailing</a
-            >
-          </article>
+          
+          <div class="hero-premium__actions">
+            <a href="contact.html" class="btn btn--primary">Get Your Free Quote</a>
+            <a href="tel:+447368170028" class="btn btn--outline">Call To Discuss Your Vehicle</a>
+            <a href="ceramic_coating.html" class="btn btn--primary">Learn More ⇒</a>
+            
+          </div>
+          <p class="hero-premium__subtext">Every vehicle is different. Contact True Gloss to understand your options and receive a personalised recommendation.</p>
         </div>
       </section>
+
+      <!-- SERVICES GRID: Premium Focus with GSAP Parallax -->
+      <section class="services-preview">
+        <div class="services-preview__grid">
+          
+          <!-- Primary Focus: Ceramic & Paint Correction -->
+          <article class="service-card service-card--premium">
+            <h3 class="service-card__title">Paint Correction & Ceramic Coatings</h3>
+            <p class="service-card__desc">
+              Multi-stage machine polishing to permanently remove defects, locked in with up to 5 years of hydrophobic ceramic protection.
+            </p>
+            <a href="detailing.html" class="btn btn--secondary">Discover Premium Protection</a>
+          </article>
+
+          <!-- Secondary Focus: Valeting Demoted -->
+          <article class="service-card service-card--secondary">
+            <h3 class="service-card__title">Routine Maintenance & Valeting</h3>
+            <p class="service-card__desc">
+              Professional deep cleaning and ongoing maintenance washes designed to safely uphold your vehicle's showroom finish.
+            </p>
+            <a href="valeting.html" class="btn btn--secondary">View Valeting Services</a>
+          </article>
+          
+        </div>
+      </section>  
     </main>
 
+    <!--
+      ========================================
+      GLOBAL FOOTER
+      ========================================
+    -->
     <footer class="footer">
       <div class="footer__content">
         <p>&copy; 2026 True Gloss Detailing. All rights reserved.</p>
+        
         <div class="footer__socials">
           Follow us on Instagram
           <a href="https://instagram.com/truegloss_" target="_blank" rel="noopener noreferrer">@truegloss_</a>
@@ -88,13 +131,19 @@
         <div class="footer__creator">
           Designed & Developed by <a href="https://github.com/rohank9705" target="_blank" rel="noopener noreferrer">Rohan</a>
         </div>
-      </div>
-      <div class="footer__admin">
+        
+        <!-- THE SECRET ADMIN DOOR -->
+        <div class="footer__admin">
           <a href="login.html" id="auth-login-btn">Staff Login</a>
         </div>
       </div>
     </footer>
 
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Animation Logic -->
     <script src="app.js"></script>
   </body>
 </html>

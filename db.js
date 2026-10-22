@@ -7,4 +7,9 @@ const pool = new Pool({
     }
 });
 
+// Catch unexpected database disconnects instantly so the server never crashes
+pool.on('error', (err, client) => {
+    console.error('Unexpected database disconnect (Neon sleep). Server is still running.', err.message);
+});
+
 module.exports = pool;
