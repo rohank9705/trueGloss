@@ -18,3 +18,64 @@ gsap.utils.toArray('.gs-reveal').forEach(function(elem) {
         }
     );
 });
+
+
+// Image Modal Logic
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("expandedImg");
+const captionText = document.getElementById("modalCaption");
+const closeBtn = document.querySelector(".modal-close");
+
+// Attach click event to all gallery images
+document.querySelectorAll(".modal-trigger").forEach(img => {
+    img.addEventListener("click", function() {
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
+    });
+});
+
+// Close modal on 'X' click
+closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto"; // Restore background scrolling
+});
+
+// Close modal if user clicks anywhere outside the image
+modal.addEventListener("click", function(e) {
+    if (e.target !== modalImg) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+});
+
+document.querySelectorAll(".modal-trigger").forEach(img => {
+    img.addEventListener("click", function(e) {
+        e.stopPropagation(); 
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+        document.body.style.overflow = "hidden"; 
+    });
+});
+
+// Back to Top Button Logic
+const backToTopBtn = document.getElementById("backToTop");
+
+if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+        }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
